@@ -19,7 +19,7 @@
     </properties>
 
     <dependencies>
-        <!-- ✅ MySQL Connector/J -->
+        <!-- MySQL Connector/J -->
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
             <groupId>com.mysql</groupId>
@@ -27,7 +27,7 @@
             <version>9.3.0</version>
         </dependency>
 
-        <!-- ✅ Servlet API (Tomcat 11 dùng Jakarta EE 10) -->
+        <!-- Servlet API (Tomcat 11 dùng Jakarta EE 10) -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -35,7 +35,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ JSP API -->
+        <!-- JSP API -->
         <dependency>
             <groupId>jakarta.servlet.jsp</groupId>
             <artifactId>jakarta.servlet.jsp-api</artifactId>
@@ -43,7 +43,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ JSTL (nếu có dùng trong JSP) -->
+        <!-- JSTL (nếu có dùng trong JSP) -->
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
@@ -55,7 +55,7 @@
             <version>3.0.1</version>
         </dependency>
 
-        <!-- ✅ JUnit cho test -->
+        <!--JUnit cho test -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
