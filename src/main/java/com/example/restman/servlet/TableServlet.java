@@ -14,11 +14,6 @@ import com.example.restman.dao.TableDAO;
 
 @WebServlet("/TableServlet")
 public class TableServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    public TableServlet() {
-        super();
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,6 +25,9 @@ public class TableServlet extends HttpServlet {
 
         String date = request.getParameter("date");
         String timeSlot = request.getParameter("timeSlot");
+
+        System.out.println("data svl:" + date);
+        System.out.println("timeSlot svl:" + timeSlot);
 
         if (date == null || timeSlot == null || date.isEmpty() || timeSlot.isEmpty()) {
             response.getWriter().write("<option value=''>Vui lòng chọn ngày và giờ</option>");

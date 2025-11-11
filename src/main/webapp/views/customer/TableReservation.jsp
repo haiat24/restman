@@ -85,35 +85,51 @@
 </footer>
 
 <script>
-    const dateInput = document.getElementById("date");
-    const timeSlotSelect = document.getElementById("timeSlot");
-    const tableSelect = document.getElementById("table");
+    document.addEventListener("DOMContentLoaded", function() {
+        const dateInput = document.getElementById("date");
+        const timeSlotSelect = document.getElementById("timeSlot");
+        const tableSelect = document.getElementById("table");
 
-    async function loadEmptyTables() {
-        const date = dateInput.value;
-        const timeSlot = timeSlotSelect.value;
+        async function loadEmptyTables() {
+            const date = dateInput.value;
+            const timeSlot = timeSlotSelect.value;
 
-        if (!date || !timeSlot) {
-            tableSelect.innerHTML = '<option value="">-- Vui lòng chọn ngày & giờ --</option>';
-            return;
+            if (!date || !timeSlot) {
+                console.log("Date hoặc timeSlot trống, không gọi servlet");
+                tableSelect.innerHTML = '<option value="">-- Vui lòng chọn ngày & giờ --</option>';
+                return;
+            }
+
+            try {
+                const contextPath = '<%= request.getContextPath() %>';
+                const url = contextPath + '/TableServlet?date=' + encodeURIComponent(date) + '&timeSlot=' + encodeURIComponent(timeSlot);
+                console.log("URL gửi đi:", url);
+
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const html = await response.text();
+                tableSelect.innerHTML = html;
+
+            } catch (err) {
+                console.error("Lỗi khi tải bàn trống:", err);
+                tableSelect.innerHTML = '<option value="">(Không tải được dữ liệu)</option>';
+            }
         }
 
-        try {
-            const response = await fetch(`<%= request.getContextPath() %>/TableServlet?date=${date}&timeSlot=${timeSlot}`);
-            <%--const baseUrl = '<%= request.getContextPath() %>';--%>
-            <%--const response = await fetch(`TableServlet?date=${date}&timeSlot=${timeSlot}`);--%>
-            const html = await response.text();
-            console.log("Dữ liệu từ TableServlet:", html); // Debug xem servlet trả gì
-            tableSelect.innerHTML = html;
+        dateInput.addEventListener("change", function() {
+            console.log("Event change trên dateInput được kích hoạt");
+            loadEmptyTables();
+        });
 
-        } catch (err) {
-            console.error("Lỗi khi tải bàn trống:", err);
-            tableSelect.innerHTML = '<option value="">(Không tải được dữ liệu)</option>';
-        }
-    }
-
-    dateInput.addEventListener("change", loadEmptyTables);
-    timeSlotSelect.addEventListener("change", loadEmptyTables);
+        timeSlotSelect.addEventListener("change", function() {
+            console.log("Event change trên timeSlotSelect được kích hoạt");
+            loadEmptyTables();
+        });
+    });
 </script>
 
 </body>
